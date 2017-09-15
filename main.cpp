@@ -5,9 +5,13 @@
 #include <iostream>
 #include "FDPMessage.cpp"
 
+using namespace fdp;
+
 int main() {
-    const auto in = "\1\1\1:hello:{\"man\\#\":true}#ack";
+    const auto in = "\34:hello:{\"man\\#\":true}#ack=13#crc=1234566";
     auto message = fdp::FDPMessage::parse(in);
 
-    std::cout << "Message is " << message;
+    for (auto &it : message->getOptions()) {
+        std::cout << "Opt = " << it.first << " Value = " << it.second << '\n';
+    }
 }
